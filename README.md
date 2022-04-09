@@ -137,6 +137,13 @@ It prints the the keyword entered is "a"
 <img>
 </p>
 
+It prints the following when a match is not found
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/68620206/162558805-8ffd1582-8d48-4a6c-8bbd-07419732416d.png" 
+       alt="result of UserSearch() function and &quotnothing&quot is used as a keyword. It Prints match not found") 
+<img>
+</p>
+
 Entering "-exit" as a keyword returns from the funciton. 
 <p align="center">
   <img src="https://user-images.githubusercontent.com/68620206/162558594-10693d55-aaf8-430c-8274-62b7c95972be.png" 
