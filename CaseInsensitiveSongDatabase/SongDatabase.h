@@ -96,3 +96,7 @@ private:
 	unsigned m_longestArtistNameLen; // used for formating
 };
 
+
+
+
+

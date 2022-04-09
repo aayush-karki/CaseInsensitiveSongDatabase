@@ -24,8 +24,15 @@ void SongDatabase::AddToDatabase(std::string a_artistName, const songVec& a_arti
 	// set artist Max length if the artist name is hight than currmax
 	m_longestArtistNameLen = m_longestArtistNameLen < a_artistName.length() ? a_artistName.length() : m_longestArtistNameLen;
 
-	m_database.insert(std::pair<std::string, songVec>(a_artistName, a_artistSongList));
-	SortArtistSong(a_artistName);
+	// if the artist does not exist in the database creating an entry with empty songlist
+	if(!CheckArtistExist(a_artistName))
+	{
+		songVec tempSongList;
+		m_database.insert(std::pair<std::string, songVec>(a_artistName, tempSongList));
+	}
+
+	// now that we are sure that the artist exist in the database
+	AddSongToAlreadyExistingArtist(a_artistName, a_artistSongList);
 }
 
 ///
@@ -40,17 +47,8 @@ void SongDatabase::AddToDatabase(std::string a_artistName, const songVec& a_arti
 /// 
 void SongDatabase::AddToDatabase(std::string a_artistName, const std::initializer_list<std::string>& a_artistSongList)
 {
-	if(!CheckArtistExist(a_artistName))
-	{
-		// artist not found in the database; adding to database
-		songVec songList = a_artistSongList;
-		AddToDatabase(a_artistName, songList);
-	}
-	else
-	{
-		// artist exists in the database
-		AddSongToAlreadyExistingArtist(a_artistName, a_artistName);
-	}
+	songVec songList = a_artistSongList;
+	AddToDatabase(a_artistName, songList);
 }
 
 ///
@@ -64,15 +62,7 @@ void SongDatabase::AddToDatabase(std::string a_artistName, const std::initialize
 /// @param a_artistSong name of the songs to add to database
 void SongDatabase::AddToDatabase(std::string a_artistName, std::string a_artistSong)
 {
-	if(!CheckArtistExist(a_artistName))
-	{
-		AddToDatabase(a_artistName, { a_artistSong });
-	}
-	else
-	{
-		// artist exists in the database
-		AddSongToAlreadyExistingArtist(a_artistName, a_artistSong);
-	}
+	AddToDatabase(a_artistName, { a_artistSong });
 }
 
 /// 
